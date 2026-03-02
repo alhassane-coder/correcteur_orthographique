@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat de la correction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Résultat de la correction</h1>
+
+    <p>
+        Langue détectée : <strong>{{ langue }}</strong>
+        &nbsp;|&nbsp;
+        Technique utilisée : <strong>{{ technique }}</strong>
+    </p>
+
+    <div class="texte-resultat">
+        {% for token, est_mot, statut, propositions in resultats %}
+            {% if not est_mot %}
+                {{ token }}
+            {% elif statut == "ok" %}
+                <span class="mot-correct">{{ token }}</span>
+            {% else %}
+                <span class="mot-erreur">
+                    {{ token }}
+                    {% if propositions %}
+                        <span class="propositions">[{{ propositions|join(' / ') }}]</span>
+                    {% endif %}
+                </span>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <br>
+    <a href="/">← Retour au formulaire</a>
+</body>
+</html>

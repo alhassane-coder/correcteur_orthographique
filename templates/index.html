@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Correcteur orthographique</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Correcteur orthographique</h1>
+
+    <form action="/corriger" method="POST">
+
+        <label for="texte">Texte à corriger :</label><br><br>
+        <textarea id="texte" name="texte" rows="10" cols="60"
+                  placeholder="Entrez votre texte ici..."></textarea>
+        <br><br>
+
+        <label for="langue">Langue :</label>
+        <select id="langue" name="langue">
+            <option value="auto">Automatique</option>
+            {% for langue in langues %}
+                <option value="{{ langue }}">{{ langue }}</option>
+            {% endfor %}
+        </select>
+        &nbsp;&nbsp;
+
+        <label for="technique">Technique de correction :</label>
+        <select id="technique" name="technique">
+            <option value="levenshtein">Levenshtein</option>
+            <option value="prefsuff">Préfixe / Suffixe</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Corriger le texte</button>
+
+    </form>
+</body>
+</html>
