@@ -98,7 +98,7 @@ echo "texte à corriger" | python3 spellcheck_client.py --langue auto --techniqu
 }
 ```
 
-- `texte` : chaîne de caractères à corriger (obligatoire)
+- `texte` : chaîne de caractères à corriger (optionnel ; si omis ou vide, le serveur utilise `""` et renvoie simplement une réponse sans erreurs)
 - `langue` : langue du dictionnaire (ex: `french`, `english`) ou `auto` pour détection automatique
 - `technique` : méthode de correction `levenshtein` ou `prefsuff`
 
