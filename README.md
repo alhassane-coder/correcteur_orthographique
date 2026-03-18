@@ -88,6 +88,41 @@ echo "texte à corriger" | python3 spellcheck_client.py --langue auto --techniqu
 ```
 
 ### API REST
+
+#### Format de la requête
+```json
+{
+  "texte": "texte à corriger",
+  "langue": "french",
+  "technique": "levenshtein"
+}
+```
+
+- `texte` : chaîne de caractères à corriger (obligatoire)
+- `langue` : langue du dictionnaire (ex: `french`, `english`) ou `auto` pour détection automatique
+- `technique` : méthode de correction `levenshtein` ou `prefsuff`
+
+#### Format de la réponse
+```json
+{
+  "langue": "french",
+  "erreurs": [
+    {
+      "position": 1,
+      "mot": "vodrais",
+      "propositions": ["voudrais", "voudrait", "vodka", "vodras"]
+    }
+  ]
+}
+```
+
+- `langue` : langue détectée ou utilisée
+- `erreurs` : liste des mots non trouvés dans le dictionnaire
+  - `position` : index du mot dans la liste des mots
+  - `mot` : le mot non reconnu
+  - `propositions` : liste des suggestions de correction (triées par pertinence)
+
+#### Exemple curl
 ```bash
 curl -X POST http://127.0.0.1:5000/spellcheck \
   -H "Content-Type: application/json" \

@@ -83,11 +83,10 @@ def obtenir_propositions(mot, dictionnaire, technique):
     """Retourne une liste triée de propositions pour un mot inconnu."""
     mot = mot.lower()
     if technique == "levenshtein":
-        resultats = [(levenshtein(mot, m), m) for m in dictionnaire]
+        resultats = [(levenshtein(mot, m), m) for m in dictionnaire if m != mot]
         resultats.sort(key=lambda x: (x[0], x[1]))
     elif technique == "prefsuff":
-        # Score le plus élevé = meilleure proposition
-        resultats = [(-score_prefsuff(mot, m), m) for m in dictionnaire]
+        resultats = [(-score_prefsuff(mot, m), m) for m in dictionnaire if m != mot]
         resultats.sort(key=lambda x: x[0])
     else:
         return []
